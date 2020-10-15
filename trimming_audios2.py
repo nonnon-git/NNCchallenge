@@ -47,7 +47,7 @@ def cut_wav(filename, time):
     # 引数bufferとして渡されたbufferを１次元配列に変換する
     for i in range(num_cut):
         # 出力データを生成
-        outf = filename + str(i) + '.wav'
+        outf = 'output/' + os.path.basename(filename).split('.', 1)[0] + '_' + str(i) + '.wav'
         start_cut = int(i * frames)
         end_cut = int(i * frames + frames)
         print(start_cut)
@@ -79,23 +79,14 @@ def cut_wav(filename, time):
 
 
 # img_dir = '/Users/nobuyuki/PycharmProjects/nncc_audiostock_16k_24sec_2/*.wav'  # 入力ディレクトリ
-img_dir = '/Users/nobuyuki/PycharmProjects/NNCchallenge/sample/*.wav'
+img_dir = '/Users/nobuyuki/PycharmProjects/sample/*.wav'
 out_dir = 'output'  # 出力ディレクトリ
 types = ['*.wav']
-cut_time = 1.0
+cut_time = 12
 paths = glob.glob(img_dir)
 # img_dir 内のアイテムのパスのリストを取得
 print(paths)
 print(len(paths))
-# for file in paths:
-#     cut_wav(file, cut_time)
+for file in paths:
+    cut_wav(file, cut_time)
 
-def trimming_wavs(filename, bitesize):
-    wr = wave.open(filename, 'rb')
-    w = wr.getsampwidth()
-    fr = wr.getframerate()
-    fn = wr.getnframes()
-    return w, fr, fn
-
-for f in paths:
-    print(trimming_wavs(f, 0))
