@@ -8,12 +8,12 @@ import pathlib
 import glob
 
 # 一応既に同じ名前のディレクトリがないか確認。
-file = os.path.exists("output")
+file = os.path.exists("/Users/nobuyuki/PycharmProjects/output")
 print(file)
 
 if not file:
     # 保存先のディレクトリの作成
-    os.mkdir("output")
+    os.mkdir("/Users/nobuyuki/PycharmProjects/output")
 
 
 # filenameに読み込むファイル、timeにカットする間隔
@@ -47,7 +47,7 @@ def cut_wav(filename, time):
     # 引数bufferとして渡されたbufferを１次元配列に変換する
     for i in range(num_cut):
         # 出力データを生成
-        outf = 'output/' + os.path.basename(filename).split('.', 1)[0] + '_' + str(i) + '.wav'
+        outf = '/Users/nobuyuki/PycharmProjects/output/' + os.path.basename(filename).split('.', 1)[0] + '_' + str(i) + '.wav'
         start_cut = int(i * frames)
         end_cut = int(i * frames + frames)
         print(start_cut)
@@ -64,29 +64,12 @@ def cut_wav(filename, time):
         ww.close()
 
 
-# print("input filename = ")
-# # f_name = "audiostock_47858"
-# # print("cut time = ")
-# # cut_time = 1.5
-# # cut_wav(f_name, float(cut_time))
-
-# directory = pathlib.Path('/Users/nobuyuki/PycharmProject/nncc_audiostock_16k_24sec_1')
-# cut_time = 1.5
-# for file in os.listdir(directory):
-#  print(file)
-# filename = os.fsdecode(file)
-# cut_wav(filename, float(cut_time))
-
-
-# img_dir = '/Users/nobuyuki/PycharmProjects/nncc_audiostock_16k_24sec_2/*.wav'  # 入力ディレクトリ
 img_dir = '/Users/nobuyuki/PycharmProjects/sample/*.wav'
 out_dir = 'output'  # 出力ディレクトリ
 types = ['*.wav']
 cut_time = 12
 paths = glob.glob(img_dir)
 # img_dir 内のアイテムのパスのリストを取得
-print(paths)
-print(len(paths))
 for file in paths:
     cut_wav(file, cut_time)
 
