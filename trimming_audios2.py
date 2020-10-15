@@ -4,12 +4,10 @@ from scipy import fromstring, int16
 import numpy as np
 import os
 import math
-import pathlib
 import glob
 
 # 一応既に同じ名前のディレクトリがないか確認。
 file = os.path.exists("/Users/nobuyuki/PycharmProjects/output")
-print(file)
 
 if not file:
     # 保存先のディレクトリの作成
@@ -50,8 +48,6 @@ def cut_wav(filename, time):
         outf = '/Users/nobuyuki/PycharmProjects/output/' + os.path.basename(filename).split('.', 1)[0] + '_' + str(i) + '.wav'
         start_cut = int(i * frames)
         end_cut = int(i * frames + frames)
-        print(start_cut)
-        print(end_cut)
         Y = X[start_cut:end_cut]
         outd = struct.pack("h" * len(Y), *Y)
 
@@ -64,12 +60,17 @@ def cut_wav(filename, time):
         ww.close()
 
 
+# ___settings___
+
 img_dir = '/Users/nobuyuki/PycharmProjects/sample/*.wav'
 out_dir = 'output'  # 出力ディレクトリ
 types = ['*.wav']
 cut_time = 12
 paths = glob.glob(img_dir)
 # img_dir 内のアイテムのパスのリストを取得
+
+# ___main___
+
 for file in paths:
     cut_wav(file, cut_time)
 
