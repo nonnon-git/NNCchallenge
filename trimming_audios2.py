@@ -74,3 +74,9 @@ paths = glob.glob(img_dir)
 for file in paths:
     cut_wav(file, cut_time)
 
+
+# references
+# http://tacky0612.hatenablog.com/entry/2017/11/21/164409
+# https://qiita.com/futurebone/items/b3723899235a977f5796
+# https://teratail.com/questions/113349
+
