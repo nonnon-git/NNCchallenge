@@ -7,11 +7,11 @@ import math
 import glob
 
 # 一応既に同じ名前のディレクトリがないか確認。
-file = os.path.exists("/Users/nobuyuki/PycharmProjects/output")
+file = os.path.exists("/Users/nobuyuki/PycharmProjects/trimmed_tpz")
 
 if not file:
     # 保存先のディレクトリの作成
-    os.mkdir("/Users/nobuyuki/PycharmProjects/output")
+    os.mkdir("/Users/nobuyuki/PycharmProjects/trimmed_tpz")
 
 
 # filenameに読み込むファイル、timeにカットする間隔
@@ -45,7 +45,7 @@ def cut_wav(filename, time):
     # 引数bufferとして渡されたbufferを１次元配列に変換する
     for i in range(num_cut):
         # 出力データを生成
-        outf = '/Users/nobuyuki/PycharmProjects/output/' + os.path.basename(filename).split('.', 1)[0] + '_' + str(i) + '.wav'
+        outf = '/Users/nobuyuki/PycharmProjects/trimmed_tpz/' + os.path.basename(filename).split('.', 1)[0] + '_' + str(i) + '.wav'
         start_cut = int(i * frames)
         end_cut = int(i * frames + frames)
         Y = X[start_cut:end_cut]
@@ -62,15 +62,16 @@ def cut_wav(filename, time):
 
 # ___settings___
 
-img_dir = '/Users/nobuyuki/PycharmProjects/sample/*.wav'
-out_dir = 'output'  # 出力ディレクトリ
+img_dir = '/Users/nobuyuki/PycharmProjects/t+pazolite/encorded_tpz.wav'
+#sample_dir = '/Users/nobuyuki/PycharmProjects/sample/audiostock_42554.wav'
+out_dir = 'trimmed_tpz'  # 出力ディレクトリ
 types = ['*.wav']
-cut_time = 12
+cut_time = 24
 paths = glob.glob(img_dir)
 # img_dir 内のアイテムのパスのリストを取得
 
 # ___main___
-
+print(paths)
 for file in paths:
     cut_wav(file, cut_time)
 
@@ -80,3 +81,21 @@ for file in paths:
 # https://qiita.com/futurebone/items/b3723899235a977f5796
 # https://teratail.com/questions/113349
 
+# print(paths)
+# wr = wave.open(sample_dir, 'rb')
+# # waveファイルが持つ性質を取得
+# ch = wr.getnchannels()
+# # モノラルなら1、ステレオなら２
+# width = wr.getsampwidth()
+# # サンプルサイズをバイト長で返す
+# fr = wr.getframerate()
+# # サンプリングレートを返す
+# fn = wr.getnframes()
+# # オーディオフレーム数を返す
+# wr.close()
+# print(ch, width, fr, fn)
+
+# >>> ['/Users/nobuyuki/PycharmProjects/t+pazolite/encorded_tpz.wav']
+# >>> 1 2 8000 192000
+# >>> ['/Users/nobuyuki/PycharmProjects/t+pazolite/encorded_tpz.wav']
+# >>> 1 2 8000 86400171
