@@ -61,10 +61,12 @@ def cut_wav(filename, time):
 
 
 # ___settings___
+sound_dir1 = '/Users/nobuyuki/PycharmProjects/nncc_audiostock_16k_24sec_1/*wav'
+sound_dir2 = '/Users/nobuyuki/PycharmProjects/nncc_audiostock_16k_24sec_2/*wav'
 
-img_dir1 = '/Users/nobuyuki/PycharmProjects/t+pazolite/encorded_WorldVanquisher.wav'
-img_dir2 = '/Users/nobuyuki/PycharmProjects/t+pazolite/encorded_tempestissimo.wav'
-img_dir3 = '/Users/nobuyuki/PycharmProjects/t+pazolite/encorded_cyaegha.wav'
+img_dir1 = '/Users/nobuyuki/PycharmProjects/trimmed_tpz/*.wav'
+img_dir2 = '/Users/nobuyuki/PycharmProjects/trimmed_validation/*.wav'
+img_dir3 = '/Users/nobuyuki/PycharmProjects/trimmed_validation_tpz/*.wav'
 
 #sample_dir = '/Users/nobuyuki/PycharmProjects/sample/audiostock_42554.wav'
 out_dir = 'trimmed_validation'  # 出力ディレクトリ
@@ -75,8 +77,8 @@ paths = glob.glob(img_dir3)
 
 # ___main___
 print(paths)
-for file in paths:
-    cut_wav(file, cut_time)
+# for file in paths:
+#     cut_wav(file, cut_time)
 
 
 # references
@@ -84,8 +86,8 @@ for file in paths:
 # https://qiita.com/futurebone/items/b3723899235a977f5796
 # https://teratail.com/questions/113349
 
-# print(paths)
-# wr = wave.open(sample_dir, 'rb')
+# print(sound_dir1)
+# wr = wave.open(sound_dir1, 'rb')
 # # waveファイルが持つ性質を取得
 # ch = wr.getnchannels()
 # # モノラルなら1、ステレオなら２
@@ -102,3 +104,26 @@ for file in paths:
 # >>> 1 2 8000 192000
 # >>> ['/Users/nobuyuki/PycharmProjects/t+pazolite/encorded_tpz.wav']
 # >>> 1 2 8000 86400171
+
+
+# def checking_data_size(filename):
+#     error_list = []
+#     for path in filename:
+#         wr = wave.open(path, 'rb')
+#         # waveファイルが持つ性質を取得
+#         ch = wr.getnchannels()
+#         # モノラルなら1、ステレオなら２
+#         width = wr.getsampwidth()
+#         # サンプルサイズをバイト長で返す
+#         fr = wr.getframerate()
+#         # サンプリングレートを返す
+#         fn = wr.getnframes()
+#         # オーディオフレーム数を返す
+#         wr.close()
+#         print(ch, width, fr, fn)
+#         if (ch, width, fr, fn) != (1, 2, 8000, 192000):
+#             error_list.append(ch, width, fr, fn)
+#     return error_list
+#
+#
+# print(checking_data_size(paths))
