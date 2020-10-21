@@ -1,17 +1,18 @@
 import wave
 import struct
 from scipy import fromstring, int16
+from scipy.io.wavfile import read
 import numpy as np
 import os
 import math
 import glob
 
 # 一応既に同じ名前のディレクトリがないか確認。
-file = os.path.exists("/Users/nobuyuki/PycharmProjects/trimmed_validation")
+file = os.path.exists("/Users/nobuyuki/PycharmProjects/trimmed_validation_tpz_2sec")
 
 if not file:
     # 保存先のディレクトリの作成
-    os.mkdir("/Users/nobuyuki/PycharmProjects/trimmed_validation")
+    os.mkdir("/Users/nobuyuki/PycharmProjects/trimmed_validation_tpz_2sec")
 
 
 # filenameに読み込むファイル、timeにカットする間隔
@@ -45,7 +46,7 @@ def cut_wav(filename, time):
     # 引数bufferとして渡されたbufferを１次元配列に変換する
     for i in range(num_cut):
         # 出力データを生成
-        outf = '/Users/nobuyuki/PycharmProjects/trimmed_validation/' + os.path.basename(filename).split('.', 1)[0] + '_' + str(i) + '.wav'
+        outf = '/Users/nobuyuki/PycharmProjects/trimmed_validation_tpz_2sec/' + os.path.basename(filename).split('.', 1)[0] + '_' + str(i) + '.wav'
         start_cut = int(i * frames)
         end_cut = int(i * frames + frames)
         Y = X[start_cut:end_cut]
@@ -61,22 +62,23 @@ def cut_wav(filename, time):
 
 
 # ___settings___
-sound_dir1 = '/Users/nobuyuki/PycharmProjects/nncc_audiostock_16k_24sec_1/*wav'
-sound_dir2 = '/Users/nobuyuki/PycharmProjects/nncc_audiostock_16k_24sec_2/*wav'
+sound_dir1 = '/Users/nobuyuki/PycharmProjects/trimmed_audiostock1_2sec/*.wav'
+sound_dir2 = '/Users/nobuyuki/PycharmProjects/trimmed_audiostock2_2sec/*.wav'
+sound_dir3 = '/Users/nobuyuki/PycharmProjects/trimmed_audiostock1_2sec/audiostock_42554_1_5.wav'
 
-img_dir1 = '/Users/nobuyuki/PycharmProjects/trimmed_tpz/*.wav'
-img_dir2 = '/Users/nobuyuki/PycharmProjects/trimmed_validation/*.wav'
-img_dir3 = '/Users/nobuyuki/PycharmProjects/trimmed_validation_tpz/*.wav'
+img_dir1 = '/Users/nobuyuki/PycharmProjects/trimmed_validation_12sec/*.wav'
+img_dir2 = '/Users/nobuyuki/PycharmProjects/trimmed_validation_tpz_12sec/*.wav'
+img_dir3 = '/Users/nobuyuki/PycharmProjects/trimmed_tpz_12sec/*.wav'
 
 #sample_dir = '/Users/nobuyuki/PycharmProjects/sample/audiostock_42554.wav'
-out_dir = 'trimmed_validation'  # 出力ディレクトリ
+out_dir = 'trimmed_validation_tpz_2sec'  # 出力ディレクトリ
 types = ['*.wav']
-cut_time = 24
-paths = glob.glob(img_dir3)
+cut_time = 2
+paths = glob.glob(sound_dir1)
 # img_dir 内のアイテムのパスのリストを取得
 
 # ___main___
-print(paths)
+# print(paths)
 # for file in paths:
 #     cut_wav(file, cut_time)
 
@@ -121,9 +123,16 @@ print(paths)
 #         # オーディオフレーム数を返す
 #         wr.close()
 #         print(ch, width, fr, fn)
-#         if (ch, width, fr, fn) != (1, 2, 8000, 192000):
+#         if (ch, width, fr, fn) != (1, 2, 8000, 16000):
 #             error_list.append(ch, width, fr, fn)
 #     return error_list
 #
 #
 # print(checking_data_size(paths))
+
+
+rate, data = read(sound_dir3)
+print(data)
+print(type(data))
+print(data.shape)
+print(data.size)
